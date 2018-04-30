@@ -115,16 +115,6 @@ target=_blank>Blog Geomática Agua</a></li>
             zoomControl:true, maxZoom:28, minZoom:1
         }).fitBounds([[40.6482322106,-4.16397289521],[41.2785168482,-3.08540840416]]);
         
-        
-        var hash = new L.Hash(map);
-        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
-        L.control.locate().addTo(map);
-        var measureControl = new L.Control.Measure({
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
         var sidebar = L.control.sidebar('sidebar', {
         position: 'left',
         closeButton: true,
@@ -138,6 +128,17 @@ target=_blank>Blog Geomática Agua</a></li>
         map.on('click', function () {
         sidebar.hide();
         });
+        
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        
         measureControl.addTo(map);
         var bounds_group = new L.featureGroup([]);
         var basemap0 = L.tileLayer('http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
