@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Trminosmunicipales_0.js"></script>
+        <script src="data/Elementoslineales_1.js"></script>
+        <script src="data/ElementosNoencontrados_2.js"></script>
+        <script src="data/ElementosnovisitadosdeDISTRIBUCION_3.js"></script>
+        <script src="data/ElementosnovisitadosdeCAPTACION_4.js"></script>
+        <script src="data/ElementosnovisitadosdeUTILIZACION_5.js"></script>
+        <script src="data/ElementosnovisitadosPuentes_6.js"></script>
+        <script src="data/ElementosnovisitadosdeACUMULACION_7.js"></script>
+        <script src="data/ElementosdeUTILIZACION_8.js"></script>
+        <script src="data/Puentes_9.js"></script>
+        <script src="data/ElementosdeACUMULACION_10.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[40.6482322106,-4.16397289521],[41.2785168482,-3.08540840416]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        var basemap1 = L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>,&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap1.addTo(map);
+        var basemap2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap2.addTo(map);
+        function setBounds() {
+        }
+        function pop_Trminosmunicipales_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Enlace'] !== null ? Autolinker.link(String(feature.properties['Enlace'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Imagen'] !== null ? '<img src="images/' + String(feature.properties['Imagen']).replace(/[\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Trminosmunicipales_0_0() {
+            return {
+                pane: 'pane_Trminosmunicipales_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Trminosmunicipales_0');
+        map.getPane('pane_Trminosmunicipales_0').style.zIndex = 400;
+        map.getPane('pane_Trminosmunicipales_0').style['mix-blend-mode'] = 'normal';
+        var layer_Trminosmunicipales_0 = new L.geoJson(json_Trminosmunicipales_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Trminosmunicipales_0',
+            onEachFeature: pop_Trminosmunicipales_0,
+            style: style_Trminosmunicipales_0_0,
+        });
+        bounds_group.addLayer(layer_Trminosmunicipales_0);
+        map.addLayer(layer_Trminosmunicipales_0);
+        function pop_Elementoslineales_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ficha</th>\
+                        <td>' + (feature.properties['Ficha'] !== null ? Autolinker.link(String(feature.properties['Ficha'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Imagen'] !== null ? '<img src="images/' + String(feature.properties['Imagen']).replace(/[\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Elementoslineales_1_0() {
+            return {
+                pane: 'pane_Elementoslineales_1',
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Elementoslineales_1');
+        map.getPane('pane_Elementoslineales_1').style.zIndex = 401;
+        map.getPane('pane_Elementoslineales_1').style['mix-blend-mode'] = 'normal';
+        var layer_Elementoslineales_1 = new L.geoJson(json_Elementoslineales_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Elementoslineales_1',
+            onEachFeature: pop_Elementoslineales_1,
+            style: style_Elementoslineales_1_0,
+        });
+        bounds_group.addLayer(layer_Elementoslineales_1);
+        map.addLayer(layer_Elementoslineales_1);
+        function pop_ElementosNoencontrados_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosNoencontrados_2_0() {
+            return {
+                pane: 'pane_ElementosNoencontrados_2',
+                shape: 'diamond',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(122,122,122,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosNoencontrados_2');
+        map.getPane('pane_ElementosNoencontrados_2').style.zIndex = 402;
+        map.getPane('pane_ElementosNoencontrados_2').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosNoencontrados_2 = new L.geoJson(json_ElementosNoencontrados_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosNoencontrados_2',
+            onEachFeature: pop_ElementosNoencontrados_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_ElementosNoencontrados_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosNoencontrados_2);
+        map.addLayer(layer_ElementosNoencontrados_2);
+        function pop_ElementosnovisitadosdeDISTRIBUCION_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosnovisitadosdeDISTRIBUCION_3_0() {
+            return {
+                pane: 'pane_ElementosnovisitadosdeDISTRIBUCION_3',
+                shape: 'triangle',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosnovisitadosdeDISTRIBUCION_3');
+        map.getPane('pane_ElementosnovisitadosdeDISTRIBUCION_3').style.zIndex = 403;
+        map.getPane('pane_ElementosnovisitadosdeDISTRIBUCION_3').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosnovisitadosdeDISTRIBUCION_3 = new L.geoJson(json_ElementosnovisitadosdeDISTRIBUCION_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosnovisitadosdeDISTRIBUCION_3',
+            onEachFeature: pop_ElementosnovisitadosdeDISTRIBUCION_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_ElementosnovisitadosdeDISTRIBUCION_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosnovisitadosdeDISTRIBUCION_3);
+        map.addLayer(layer_ElementosnovisitadosdeDISTRIBUCION_3);
+        function pop_ElementosnovisitadosdeCAPTACION_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosnovisitadosdeCAPTACION_4_0() {
+            return {
+                pane: 'pane_ElementosnovisitadosdeCAPTACION_4',
+                shape: 'triangle',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosnovisitadosdeCAPTACION_4');
+        map.getPane('pane_ElementosnovisitadosdeCAPTACION_4').style.zIndex = 404;
+        map.getPane('pane_ElementosnovisitadosdeCAPTACION_4').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosnovisitadosdeCAPTACION_4 = new L.geoJson(json_ElementosnovisitadosdeCAPTACION_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosnovisitadosdeCAPTACION_4',
+            onEachFeature: pop_ElementosnovisitadosdeCAPTACION_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_ElementosnovisitadosdeCAPTACION_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosnovisitadosdeCAPTACION_4);
+        map.addLayer(layer_ElementosnovisitadosdeCAPTACION_4);
+        function pop_ElementosnovisitadosdeUTILIZACION_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosnovisitadosdeUTILIZACION_5_0() {
+            return {
+                pane: 'pane_ElementosnovisitadosdeUTILIZACION_5',
+                shape: 'triangle',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(41,251,90,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosnovisitadosdeUTILIZACION_5');
+        map.getPane('pane_ElementosnovisitadosdeUTILIZACION_5').style.zIndex = 405;
+        map.getPane('pane_ElementosnovisitadosdeUTILIZACION_5').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosnovisitadosdeUTILIZACION_5 = new L.geoJson(json_ElementosnovisitadosdeUTILIZACION_5, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosnovisitadosdeUTILIZACION_5',
+            onEachFeature: pop_ElementosnovisitadosdeUTILIZACION_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_ElementosnovisitadosdeUTILIZACION_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosnovisitadosdeUTILIZACION_5);
+        map.addLayer(layer_ElementosnovisitadosdeUTILIZACION_5);
+        function pop_ElementosnovisitadosPuentes_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosnovisitadosPuentes_6_0() {
+            return {
+                pane: 'pane_ElementosnovisitadosPuentes_6',
+                shape: 'triangle',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,90,241,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosnovisitadosPuentes_6');
+        map.getPane('pane_ElementosnovisitadosPuentes_6').style.zIndex = 406;
+        map.getPane('pane_ElementosnovisitadosPuentes_6').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosnovisitadosPuentes_6 = new L.geoJson(json_ElementosnovisitadosPuentes_6, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosnovisitadosPuentes_6',
+            onEachFeature: pop_ElementosnovisitadosPuentes_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_ElementosnovisitadosPuentes_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosnovisitadosPuentes_6);
+        map.addLayer(layer_ElementosnovisitadosPuentes_6);
+        function pop_ElementosnovisitadosdeACUMULACION_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosnovisitadosdeACUMULACION_7_0() {
+            return {
+                pane: 'pane_ElementosnovisitadosdeACUMULACION_7',
+                shape: 'triangle',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,251,90,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosnovisitadosdeACUMULACION_7');
+        map.getPane('pane_ElementosnovisitadosdeACUMULACION_7').style.zIndex = 407;
+        map.getPane('pane_ElementosnovisitadosdeACUMULACION_7').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosnovisitadosdeACUMULACION_7 = new L.geoJson(json_ElementosnovisitadosdeACUMULACION_7, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosnovisitadosdeACUMULACION_7',
+            onEachFeature: pop_ElementosnovisitadosdeACUMULACION_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_ElementosnovisitadosdeACUMULACION_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosnovisitadosdeACUMULACION_7);
+        map.addLayer(layer_ElementosnovisitadosdeACUMULACION_7);
+        function pop_ElementosdeUTILIZACION_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ficha</th>\
+                        <td>' + (feature.properties['Ficha'] !== null ? Autolinker.link(String(feature.properties['Ficha'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Imagen'] !== null ? '<img src="images/' + String(feature.properties['Imagen']).replace(/[\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosdeUTILIZACION_8_0() {
+            return {
+                pane: 'pane_ElementosdeUTILIZACION_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,182,48,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosdeUTILIZACION_8');
+        map.getPane('pane_ElementosdeUTILIZACION_8').style.zIndex = 408;
+        map.getPane('pane_ElementosdeUTILIZACION_8').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosdeUTILIZACION_8 = new L.geoJson(json_ElementosdeUTILIZACION_8, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosdeUTILIZACION_8',
+            onEachFeature: pop_ElementosdeUTILIZACION_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ElementosdeUTILIZACION_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosdeUTILIZACION_8);
+        map.addLayer(layer_ElementosdeUTILIZACION_8);
+        function pop_Puentes_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ficha</th>\
+                        <td>' + (feature.properties['Ficha'] !== null ? Autolinker.link(String(feature.properties['Ficha'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Imagen'] !== null ? '<img src="images/' + String(feature.properties['Imagen']).replace(/[\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Puentes_9_0() {
+            return {
+                pane: 'pane_Puentes_9',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,90,241,1.0)',
+            }
+        }
+        map.createPane('pane_Puentes_9');
+        map.getPane('pane_Puentes_9').style.zIndex = 409;
+        map.getPane('pane_Puentes_9').style['mix-blend-mode'] = 'normal';
+        var layer_Puentes_9 = new L.geoJson(json_Puentes_9, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Puentes_9',
+            onEachFeature: pop_Puentes_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Puentes_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Puentes_9);
+        map.addLayer(layer_Puentes_9);
+        function pop_ElementosdeACUMULACION_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ELEMENTO</th>\
+                        <td>' + (feature.properties['ELEMENTO'] !== null ? Autolinker.link(String(feature.properties['ELEMENTO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUNICIPIO</th>\
+                        <td>' + (feature.properties['MUNICIPIO'] !== null ? Autolinker.link(String(feature.properties['MUNICIPIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ficha</th>\
+                        <td>' + (feature.properties['Ficha'] !== null ? Autolinker.link(String(feature.properties['Ficha'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Imagen'] !== null ? '<img src="images/' + String(feature.properties['Imagen']).replace(/[\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ElementosdeACUMULACION_10_0() {
+            return {
+                pane: 'pane_ElementosdeACUMULACION_10',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,251,90,1.0)',
+            }
+        }
+        map.createPane('pane_ElementosdeACUMULACION_10');
+        map.getPane('pane_ElementosdeACUMULACION_10').style.zIndex = 410;
+        map.getPane('pane_ElementosdeACUMULACION_10').style['mix-blend-mode'] = 'normal';
+        var layer_ElementosdeACUMULACION_10 = new L.geoJson(json_ElementosdeACUMULACION_10, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ElementosdeACUMULACION_10',
+            onEachFeature: pop_ElementosdeACUMULACION_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ElementosdeACUMULACION_10_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ElementosdeACUMULACION_10);
+        map.addLayer(layer_ElementosdeACUMULACION_10);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
+        var baseMaps = {'Stamen Terrain': basemap0, 'Thunderforest Landscape': basemap1, 'OSM': basemap2};
+        L.control.layers(baseMaps,{'<img src="legend/ElementosdeACUMULACION_10.png" /> Elementos de ACUMULACION': layer_ElementosdeACUMULACION_10,'<img src="legend/Puentes_9.png" /> Puentes': layer_Puentes_9,'<img src="legend/ElementosdeUTILIZACION_8.png" /> Elementos de UTILIZACION': layer_ElementosdeUTILIZACION_8,'<img src="legend/ElementosnovisitadosdeACUMULACION_7.png" /> Elementos no visitados de ACUMULACION': layer_ElementosnovisitadosdeACUMULACION_7,'<img src="legend/ElementosnovisitadosPuentes_6.png" /> Elementos no visitados: Puentes': layer_ElementosnovisitadosPuentes_6,'<img src="legend/ElementosnovisitadosdeUTILIZACION_5.png" /> Elementos no visitados de UTILIZACION': layer_ElementosnovisitadosdeUTILIZACION_5,'<img src="legend/ElementosnovisitadosdeCAPTACION_4.png" /> Elementos no visitados de CAPTACION': layer_ElementosnovisitadosdeCAPTACION_4,'<img src="legend/ElementosnovisitadosdeDISTRIBUCION_3.png" /> Elementos no visitados de DISTRIBUCION': layer_ElementosnovisitadosdeDISTRIBUCION_3,'<img src="legend/ElementosNoencontrados_2.png" /> Elementos No encontrados': layer_ElementosNoencontrados_2,'<img src="legend/Elementoslineales_1.png" /> Elementos lineales': layer_Elementoslineales_1,'<img src="legend/Trminosmunicipales_0.png" /> Términos municipales': layer_Trminosmunicipales_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
