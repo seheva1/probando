@@ -86,8 +86,7 @@ las que se divide la Comunidad de Madrid</p>
 target=_blank>Blog Geomática Agua</a></li>
 
      </div>
-        <div id="map">
-        </div>
+        
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
         <script src="js/leaflet-svg-shape-markers.min.js"></script>
@@ -111,7 +110,10 @@ target=_blank>Blog Geomática Agua</a></li>
         <script src="data/ElementosdeUTILIZACION_8.js"></script>
         <script src="data/Puentes_9.js"></script>
         <script src="data/ElementosdeACUMULACION_10.js"></script>
-               <script>
+        
+        <div id="map">
+        </div> 
+        <script>
             
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
