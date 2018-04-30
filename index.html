@@ -18,7 +18,9 @@
             margin: 0;
         }
         </style>
-        <title></title>
+        <title>"Mapa colaborativo"</title>ç
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     </head>
     <body>
         <div id="map">
@@ -46,10 +48,82 @@
         <script src="data/ElementosdeUTILIZACION_8.js"></script>
         <script src="data/Puentes_9.js"></script>
         <script src="data/ElementosdeACUMULACION_10.js"></script>
-        <script>
+        <script src="Plugins/Sidebar/L.Control.Sidebar.js"></script>
+     <link rel="stylesheet" href="Plugins/Sidebar/L.Control.Sidebar.css">
+       <script>
+            <div id="sidebar">
+         <h3><b> Patrimonio Hidráulico de la Comunidad de Madrid 
+</b></h3>
+
+         <p> El Patrimonio Hidráulico es un conjunto de elementos creados 
+por el ser humano para satisfacer las necesidades derivadas de los 
+recursos hídricos.</p>
+
+         <p> Este proyecto ha sido llevado a cabo por la Unidad de 
+Geomática del Instituto IMDEA Agua usando los mapas antiguos creados por 
+el actual Instituto Geográfico Nacional (IGN). Estos mapas se elaboraron 
+como parte del trabajo para la consecución del primer Mapa Topográfico 
+de España entre los años 1874 y 1950 (últimas actualizaciones). Los 
+mapas empleados se denominan <i>Minutas Cartográficas</i> o planimetrías 
+a escala 1:25.000 que abarcaban todo el territorio nacional. </p>
+
+         <p> La información contenida en esta cartografía antigua es muy 
+rica y variada relacionada con los elementos del Patrimonio Hidráulico, 
+ya que después de analizar los más de 400 mapas de la Comunidad de 
+Madrid, se obtuvieron más de 100 categorías de entidades puntuales tales 
+como norias, pozos, molinos, albercas o puentes, que hemos clasificado 
+de la siguiente manera:</p>
+             <ul>
+                 <li><u>Elementos de Acumulación</u>: aquellos que se 
+emplean para almacenar agua y, de este modo, conseguir una correcta 
+gestión del recurso (balsa, presa, depósito...)</li>
+                 <li><u>Elementos de Captación</u>: su misión es 
+introducir el agua en el sistema hidráulico para su posterior 
+utilización (fuente, noria, pozo...)</li>
+                 <li><u>Elementos de Transporte y Distribución</u>: 
+conducen el agua a los diferentes lugares en los que es demandada 
+(acueducto, almenara, compuerta...)</li>
+                 <li><u>Elementos de Utilización</u>: elementos que 
+optimizan el sistema hidráulico al emplearse en el riego, gestión del 
+agua o elaboración de otros productos (molino, batán, lavadero...)</li>
+                 <li><u>Puentes</u>: categoría independiente ya que no 
+realiza ningún uso del agua, sino que buscan salvar los impedimentos que 
+generan los cauces de agua</li>
+         </ul>
+
+         <p> En este WebMapping se incluyen sólo una pequeña parte de los 
+más de 6.000 puntos inventariados en toda la Comunidad de Madrid. Lo que 
+aparece en esta web es una muestra representativa de aquellos elementos 
+del patrimonio hidráulico que todavía sobreviven a los intensos procesos 
+de urbanización, industrialización y modernización del regadío de los 
+siglos XX y XXI y que no deberían desaparecer de nuestro territorio. 
+</p>
+
+         <p> En el blog de Geomática Agua se puede observar la cantidad 
+de elementos inventariados por categorías en las diferentes comarcas en 
+las que se divide la Comunidad de Madrid</p>
+
+             <li><a href="http://geomaticaagua.blogspot.com.es/" 
+target=_blank>Blog Geomática Agua</a></li>
+
+     </div>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
         }).fitBounds([[40.6482322106,-4.16397289521],[41.2785168482,-3.08540840416]]);
+        var sidebar = L.control.sidebar('sidebar', {
+        position: 'left',
+        closeButton: true,
+        });
+        map.addControl(sidebar);
+        
+        setTimeout(function (){
+        sidebar.show();
+        }, 500);
+        
+        map.on('click', function () {
+        sidebar.hide();
+        });
+        
         var hash = new L.Hash(map);
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         L.control.locate().addTo(map);
