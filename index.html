@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+         <title>"Mapa colaborativo"</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
@@ -22,37 +23,11 @@
             margin: 0;
         }
         </style>
-        <title>"Mapa colaborativo"</title>
+       
         
     </head>
     <body>
-        <div id="map">
-        </div>
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
-        <script src="js/leaflet-svg-shape-markers.min.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/Control.OSMGeocoder.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="data/Trminosmunicipales_0.js"></script>
-        <script src="data/Elementoslineales_1.js"></script>
-        <script src="data/ElementosNoencontrados_2.js"></script>
-        <script src="data/ElementosnovisitadosdeDISTRIBUCION_3.js"></script>
-        <script src="data/ElementosnovisitadosdeCAPTACION_4.js"></script>
-        <script src="data/ElementosnovisitadosdeUTILIZACION_5.js"></script>
-        <script src="data/ElementosnovisitadosPuentes_6.js"></script>
-        <script src="data/ElementosnovisitadosdeACUMULACION_7.js"></script>
-        <script src="data/ElementosdeUTILIZACION_8.js"></script>
-        <script src="data/Puentes_9.js"></script>
-        <script src="data/ElementosdeACUMULACION_10.js"></script>
-               <script>
-            <div id="sidebar">
+        <div id="sidebar">
          <h3><b> Patrimonio Hidráulico de la Comunidad de Madrid 
 </b></h3>
 
@@ -108,6 +83,33 @@ las que se divide la Comunidad de Madrid</p>
 target=_blank>Blog Geomática Agua</a></li>
 
      </div>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Trminosmunicipales_0.js"></script>
+        <script src="data/Elementoslineales_1.js"></script>
+        <script src="data/ElementosNoencontrados_2.js"></script>
+        <script src="data/ElementosnovisitadosdeDISTRIBUCION_3.js"></script>
+        <script src="data/ElementosnovisitadosdeCAPTACION_4.js"></script>
+        <script src="data/ElementosnovisitadosdeUTILIZACION_5.js"></script>
+        <script src="data/ElementosnovisitadosPuentes_6.js"></script>
+        <script src="data/ElementosnovisitadosdeACUMULACION_7.js"></script>
+        <script src="data/ElementosdeUTILIZACION_8.js"></script>
+        <script src="data/Puentes_9.js"></script>
+        <script src="data/ElementosdeACUMULACION_10.js"></script>
+               <script>
+            
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
         }).fitBounds([[40.6482322106,-4.16397289521],[41.2785168482,-3.08540840416]]);
