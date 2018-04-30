@@ -116,6 +116,21 @@ target=_blank>Blog Geomática Agua</a></li>
         var hash = new L.Hash(map);
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         L.control.locate().addTo(map);
+                   
+        var sidebar = L.control.sidebar('sidebar', {
+        position: 'left',
+        closeButton: true,
+        });
+        map.addControl(sidebar);
+        
+        setTimeout(function (){
+        sidebar.show();
+        }, 500);
+        
+        map.on('click', function () {
+        sidebar.hide();
+        });
+        
         var measureControl = new L.Control.Measure({
             primaryLengthUnit: 'meters',
             secondaryLengthUnit: 'kilometers',
@@ -130,20 +145,6 @@ target=_blank>Blog Geomática Agua</a></li>
             maxZoom: 28
         });
                    
-        var sidebar = L.Control.sidebar('sidebar', {
-        position: 'left',
-        closeButton: true,
-        });
-        map.addControl(sidebar);
-        
-        setTimeout(function (){
-        sidebar.show();
-        }, 500);
-        
-        map.on('click', function () {
-        sidebar.hide();
-        });
-        
         basemap0.addTo(map);
         var basemap1 = L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>,&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
